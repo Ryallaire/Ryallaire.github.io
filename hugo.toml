@@ -1,0 +1,4 @@
+baseURL = 'https://ryallaire.github.io/'
+languageCode = 'en-us'
+title = 'Ryallaires Website!'
+theme = 'ananke'
