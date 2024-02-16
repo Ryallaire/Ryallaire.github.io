@@ -1,0 +1,376 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     14315,        368]
+NotebookOptionsPosition[     13283,        347]
+NotebookOutlinePosition[     13700,        363]
+CellTagsIndexPosition[     13657,        360]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ StyleBox["System of Equation Creator:",
+  FontWeight->"Bold",
+  FontVariations->{"Underline"->True}],
+ "\n",
+ StyleBox["Description",
+  FontSlant->"Italic"],
+ ": Script for constructing ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{
+         StyleBox["A", "TI"], 
+         OverscriptBox[
+          StyleBox["x", "TI"], "\[RightVector]"], "\[LongEqual]", 
+         OverscriptBox[
+          StyleBox["b", "TI"], "\[RightVector]"]}], TraditionalForm], 
+     "errors" -> {}, "input" -> "A\\vec{x}=\\vec{b}", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "44953a0b-62cc-4e9e-ab9c-2ba068f8b757"],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       OverscriptBox[
+        StyleBox["x", "TI"], "\[RightVector]"], TraditionalForm], 
+     "errors" -> {}, "input" -> "\\vec{x}", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "b1ecedf2-b28b-47b1-9052-d2e8d2772581"],
+ " is unique and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    TemplateBox[Association["boxes" -> FormBox[
+        OverscriptBox[
+         StyleBox["b", "TI"], "\[RightVector]"], TraditionalForm], 
+      "errors" -> {}, "input" -> "\\vec{b}", "state" -> "Boxes"],
+     "TeXAssistantTemplate"], " "}], TraditionalForm]],ExpressionUUID->
+  "b85fe250-fce6-4106-bbb9-109b19c16bc2"],
+ " unspecified.\n",
+ StyleBox["Authors: Ryan H. Allaire, Andrew Lee, and Margaret Reynolds",
+  FontSlant->"Italic"],
+ "\n\n",
+ StyleBox["Step 1",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+ ":  Generate linearly independent column vectors of ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       StyleBox["A", "TI"], TraditionalForm], "errors" -> {}, "input" -> "A", 
+     "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "6e879bc9-790e-4aaf-9c3a-975b6dff7ad2"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["v", "TI"], "\[RightVector]"], "1"], ",", 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["v", "TI"], "\[RightVector]"], "2"], ",", 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["v", "TI"], "\[RightVector]"], "3"], "\[Element]", 
+         SuperscriptBox[
+          StyleBox["R", FontSlant -> "Plain"], "3"]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\vec{v}_ 1, \\vec{v}_ 2, \\vec{v}_ 3 \\in \\mathbb{R}^3", "state" -> 
+     "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "b9f6c47a-cf75-4998-b13f-20423cddd9c2"],
+ " via ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{
+         StyleBox["A", "TI"], "\[LongEqual]", 
+         StyleBox["L", "TI"], 
+         StyleBox["U", "TI"]}], TraditionalForm], "errors" -> {}, "input" -> 
+     "A=LU", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "9887d34a-059f-49c8-8039-8fc46b5adeb0"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.8492638943501787`*^9, 3.8492639689231167`*^9}, {
+   3.849264006556405*^9, 3.8492641466678333`*^9}, {3.917019336737707*^9, 
+   3.9170193602419167`*^9}, {3.9170194703049836`*^9, 3.917019534593651*^9}, {
+   3.917019637201431*^9, 3.917019747058058*^9}, {3.917022103777243*^9, 
+   3.917022130801276*^9}, 
+   3.917087515134844*^9},ExpressionUUID->"2fe28c02-8eb2-43c1-8c17-\
+8187c4aa4ca8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Choose", " ", "the", " ", "Integer", " ", "components", " ", "in", " ", 
+    "L", " ", 
+    RowBox[{"(", "left", ")"}], " ", "and", " ", "U", " ", 
+    RowBox[{"(", "right", ")"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Note", ":", " ", 
+    RowBox[{
+    "Diagonal", " ", "should", " ", "not", " ", "have", " ", "0", "s"}]}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"A", " ", "=", 
+     RowBox[{
+      RowBox[{"(", GridBox[{
+         {"\[Placeholder]", "0", "0"},
+         {"\[Placeholder]", "\[Placeholder]", "0"},
+         {"\[Placeholder]", "\[Placeholder]", "\[Placeholder]"}
+        }], ")"}], ".", " ", 
+      RowBox[{"(", GridBox[{
+         {"\[Placeholder]", "\[Placeholder]", "\[Placeholder]"},
+         {"0", "\[Placeholder]", "\[Placeholder]"},
+         {"0", "0", "\[Placeholder]"}
+        }], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"MatrixForm", "[", "A", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"v1", "=", 
+     RowBox[{"A", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "1"}], "]"}], "]"}]}], ";", " ", 
+    RowBox[{"v2", "=", 
+     RowBox[{"A", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ";", 
+    RowBox[{"v3", "=", 
+     RowBox[{"A", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "3"}], "]"}], "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.8492640655839815`*^9, 3.849264081596176*^9}, {
+  3.8492641554218445`*^9, 3.8492641656911745`*^9}, {3.849264197804332*^9, 
+  3.8492642055484595`*^9}, {3.85091210843824*^9, 3.8509121638459682`*^9}, {
+  3.8510981069928246`*^9, 3.8510981070383525`*^9}, {3.917019593297661*^9, 
+  3.917019593586993*^9}, {3.917019754291068*^9, 3.9170198174416504`*^9}, {
+  3.9170201950588417`*^9, 3.9170202047859964`*^9}, {3.91702024686621*^9, 
+  3.917020285425708*^9}, {3.917020322993306*^9, 3.9170203940805664`*^9}, {
+  3.91702043731485*^9, 3.9170204582895994`*^9}, {3.9170205570109634`*^9, 
+  3.917020589009676*^9}, {3.9170209423395495`*^9, 3.9170209625925813`*^9}, {
+  3.917022150116906*^9, 3.9170221613289003`*^9}, {3.9170874774229937`*^9, 
+  3.9170874804620595`*^9}},ExpressionUUID->"78c32e42-d396-41ac-9239-\
+fe691024521b"],
+
+Cell[TextData[{
+ StyleBox["Step 2",
+  FontWeight->"Bold"],
+ ": Choose an integer solution ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{
+         OverscriptBox[
+          StyleBox["x", "TI"], "\[RightVector]"], "\[LongEqual]", 
+         SuperscriptBox[
+          RowBox[{"[", 
+            RowBox[{
+              SubscriptBox[
+               StyleBox["x", "TI"], "1"], 
+              SubscriptBox[
+               StyleBox["x", "TI"], "2"], "\[CenterEllipsis]", 
+              SubscriptBox[
+               StyleBox["x", "TI"], 
+               StyleBox["n", "TI"]]}], "]"}], 
+          StyleBox["T", "TI"]]}], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\vec{x} = [x_1 x_2 \\cdots x_n]^T", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "5159e744-a13d-406b-ada5-616f8dd77bf5"]
+}], "Text",
+ CellChangeTimes->{{3.849264314427987*^9, 3.849264317612057*^9}, {
+  3.9170198561762867`*^9, 3.91701988916881*^9}, {3.9170199855366106`*^9, 
+  3.9170199870741405`*^9}},ExpressionUUID->"271cac62-ba6d-47ef-b615-\
+62501dd5553b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Change", " ", "the", " ", "integer", " ", "solution", " ", "below"}], " ",
+    "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"x", "=", 
+    RowBox[{"-", "1"}]}], ";", " ", 
+   RowBox[{"y", "=", "2"}], ";", " ", 
+   RowBox[{"z", " ", "=", " ", "1"}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.849264322432028*^9, 3.8492643374302297`*^9}, {
+  3.850912207111325*^9, 3.8509122191271954`*^9}, {3.8510981178545465`*^9, 
+  3.8510981207672367`*^9}, {3.9170198227077227`*^9, 3.917019848033966*^9}},
+ CellLabel->"In[34]:=",ExpressionUUID->"164e5f1b-a87d-46ef-b60e-58eb7d88cd82"],
+
+Cell[TextData[{
+ "\n",
+ StyleBox["Step 3",
+  FontWeight->"Bold"],
+ ": Create ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       OverscriptBox[
+        StyleBox["b", "TI"], "\[RightVector]"], TraditionalForm], 
+     "errors" -> {}, "input" -> "\\vec{b}", "state" -> "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "9404fbe6-8c1d-4ae6-a15e-8078af5a359e"],
+ " as a linear combination of the column vectors ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[Association["boxes" -> FormBox[
+       RowBox[{
+         OverscriptBox[
+          StyleBox["b", "TI"], "\[RightVector]"], "\[LongEqual]", 
+         StyleBox["x", "TI"], 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["v", "TI"], "\[RightVector]"], "1"], "+", 
+         StyleBox["y", "TI"], 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["v", "TI"], "\[RightVector]"], "2"], "+", 
+         StyleBox["z", "TI"], 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["v", "TI"], "\[RightVector]"], "3"]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\vec{b} = x \\vec{v}_1 + y \\vec{v}_2 + z\\vec{v}_3", "state" -> 
+     "Boxes"],
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "7ef5bc26-b271-41e3-9345-233f8d204006"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.8492643450447273`*^9, 3.849264385035989*^9}, 
+   3.91701992750498*^9, {3.917020047233364*^9, 
+   3.9170200979365835`*^9}},ExpressionUUID->"b8c7f9b5-bf82-4756-88c1-\
+4357c046c228"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Simply", " ", "execute", " ", "cell", " ", "shift"}], "+", 
+    "enter"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"b", "=", 
+     RowBox[{
+      RowBox[{"x", "*", "v1"}], "+", 
+      RowBox[{"y", "*", "v2"}], "+", 
+      RowBox[{"z", "*", "v3"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"MatrixForm", "[", "b", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.8492643616153173`*^9, 3.8492643898850803`*^9}, {
+  3.8509122875436354`*^9, 3.8509122944232244`*^9}, {3.9170209710900755`*^9, 
+  3.9170209730740438`*^9}, {3.9170210409950686`*^9, 3.917021044754547*^9}, {
+  3.9170210924027166`*^9, 3.917021099681486*^9}, {3.917021461953436*^9, 
+  3.9170214658740683`*^9}, {3.917085772859479*^9, 
+  3.917085773582837*^9}},ExpressionUUID->"5339c632-07ef-4e46-9860-\
+2c70800016f4"],
+
+Cell[TextData[{
+ "\n",
+ StyleBox["Step 4",
+  FontWeight->"Bold"],
+ ": Check the solution via row-reduction:"
+}], "Text",
+ CellChangeTimes->{{3.8510981589151807`*^9, 3.8510981625108604`*^9}, {
+  3.917020117168721*^9, 3.917020120161563*^9}, {3.917022209217455*^9, 
+  3.9170222114893093`*^9}},ExpressionUUID->"050e739d-6a31-480d-9b88-\
+3ab7b344f9da"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Simply", " ", "execute", " ", "cell", " ", "shift"}], "+", 
+    "enter"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Augmenting", " ", "and", " ", "converting", " ", "to", " ", "Matrix", " ",
+     "Form"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Ab", " ", "=", " ", 
+     RowBox[{"Transpose", "[", 
+      RowBox[{"ArrayReshape", "[", 
+       RowBox[{
+        RowBox[{"Join", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "[", 
+           RowBox[{"Transpose", "[", "A", "]"}], "]"}], ",", "b"}], "]"}], 
+        ",", 
+        RowBox[{"{", 
+         RowBox[{"4", ",", "3"}], "}"}]}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Print", " ", "Summary"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<A = \>\"", ",", 
+     RowBox[{"MatrixForm", "[", "A", "]"}], ",", " ", "\"\<\\t x= \>\"", ",", 
+     " ", 
+     RowBox[{"MatrixForm", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", " ", "y", ",", " ", "z"}], "}"}], "]"}], ",", 
+     "\"\<\\t b = \>\"", ",", 
+     RowBox[{"MatrixForm", "[", "b", "]"}]}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<[A|b] = \>\"", ",", " ", 
+     RowBox[{"MatrixForm", "[", "Ab", "]"}], ",", "\"\<  ~  \>\"", ",", 
+     RowBox[{"MatrixForm", "[", 
+      RowBox[{"RowReduce", "[", "Ab", "]"}], "]"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.917020995426771*^9, 3.917021012899663*^9}, {
+   3.9170210518582673`*^9, 3.9170210603372107`*^9}, {3.9170211053487315`*^9, 
+   3.9170211187688227`*^9}, {3.9170213122784586`*^9, 
+   3.9170213125474987`*^9}, {3.9170213678254256`*^9, 3.917021411890009*^9}, {
+   3.917021455826702*^9, 3.917021486339309*^9}, {3.91702165806763*^9, 
+   3.9170217035367193`*^9}, {3.9170217704341264`*^9, 3.917021798049607*^9}, {
+   3.917021845491036*^9, 3.917021846449554*^9}, {3.9170218946271944`*^9, 
+   3.9170218951208515`*^9}, {3.9170219251529274`*^9, 3.917021994592904*^9}, {
+   3.917022184881891*^9, 3.9170221979372463`*^9}, {3.917085780142531*^9, 
+   3.917085820538931*^9}, 3.917087505281389*^9, {3.917088072015237*^9, 
+   3.917088129520507*^9}, {3.9170885418888435`*^9, 
+   3.9170885436805444`*^9}},ExpressionUUID->"3985c9bc-39e9-4ba1-9237-\
+0a3825eadb04"]
+},
+WindowSize->{1438.5, 825.},
+WindowMargins->{{Automatic, -5.25}, {Automatic, 0}},
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Creative/NaturalColor.nb",
+ExpressionUUID->"2fc90bfe-35dc-44fd-84c4-ea81da1eead8"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3537, 94, 180, "Text",ExpressionUUID->"2fe28c02-8eb2-43c1-8c17-8187c4aa4ca8"],
+Cell[4098, 116, 2274, 52, 312, "Input",ExpressionUUID->"78c32e42-d396-41ac-9239-fe691024521b"],
+Cell[6375, 170, 1105, 28, 50, "Text",ExpressionUUID->"271cac62-ba6d-47ef-b615-62501dd5553b"],
+Cell[7483, 200, 637, 14, 89, "Input",ExpressionUUID->"164e5f1b-a87d-46ef-b60e-58eb7d88cd82"],
+Cell[8123, 216, 1533, 42, 84, "Text",ExpressionUUID->"b8c7f9b5-bf82-4756-88c1-4357c046c228"],
+Cell[9659, 260, 873, 20, 118, "Input",ExpressionUUID->"5339c632-07ef-4e46-9860-2c70800016f4"],
+Cell[10535, 282, 347, 9, 77, "Text",ExpressionUUID->"050e739d-6a31-480d-9b88-3ab7b344f9da"],
+Cell[10885, 293, 2394, 52, 293, "Input",ExpressionUUID->"3985c9bc-39e9-4ba1-9237-0a3825eadb04"]
+}
+]
+*)
+
